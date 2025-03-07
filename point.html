@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نقاطي</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap');
+
+:root {
+    --gold-1: #FFD700;
+    --gold-2: #D4AF37;
+    --gold-3: #daa520;
+    --main-gradient: linear-gradient(45deg, #FFD700, #D4AF37);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Tajawal', sans-serif;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+}
+
+.background-shapes {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.shape {
+    position: absolute;
+    filter: blur(80px);
+    opacity: 0.15;
+    animation: floatShape 20s ease-in-out infinite;
+}
+
+.shape-1 {
+    background: var(--gold-1);
+    width: 300px;
+    height: 300px;
+    top: -150px;
+    right: -150px;
+}
+
+.shape-2 {
+    background: var(--gold-2);
+    width: 400px;
+    height: 400px;
+    bottom: -200px;
+    left: -200px;
+}
+
+.shape-3 {
+    background: var(--gold-3);
+    width: 250px;
+    height: 250px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@keyframes floatShape {
+    0%, 100% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+    25% {
+        transform: translate(50px, 50px) rotate(90deg);
+    }
+    50% {
+        transform: translate(0, 100px) rotate(180deg);
+    }
+    75% {
+        transform: translate(-50px, 50px) rotate(270deg);
+    }
+}
+
+.stars {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.star {
+    position: absolute;
+    background: #fff;
+    border-radius: 50%;
+    filter: blur(1px);
+    animation: twinkle var(--duration) ease-in-out infinite;
+}
+
+.star.small { width: 1px; height: 1px; }
+.star.medium { width: 2px; height: 2px; }
+.star.large { width: 3px; height: 3px; }
+
+@keyframes twinkle {
+    0%, 100% {
+        opacity: var(--opacity);
+        transform: scale(1) rotate(0deg);
+    }
+    50% {
+        opacity: 0.2;
+        transform: scale(0.5) rotate(180deg);
+    }
+}
+
+.header {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    padding: 1rem 1.5rem;
+    background: rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    gap: 1rem;
+    transition: all 0.3s ease;
+}
+
+.header.scrolled {
+    padding: 0.8rem 1.5rem;
+}
+
+.header-logo {
+    position: absolute;
+    right: 50%;
+    transform: translateX(50%) translateY(-20px);
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    width: 70px;
+    height: 70px;
+    pointer-events: none;
+    transform-origin: top;
+}
+
+.header-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.header.scrolled .header-logo {
+    opacity: 1;
+    transform: translateX(50%) translateY(0);
+}
+
+.new-logo {
+    position: absolute;
+    left: 1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 100px;
+    z-index: 101;
+}
+
+.currency-info {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 0.6rem 1.2rem;
+    border-radius: 24px;
+    margin-left: auto;
+    direction: ltr;
+    user-select: none;
+}
+
+.currency-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.currency-icon {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+}
+
+.currency-amount {
+    color: white;
+    font-weight: 700;
+    font-size: 1.1rem;
+    letter-spacing: 0.5px;
+    margin: 0 0.3rem;
+    position: relative;
+    top: 2px;
+}
+
+.content {
+    width: 100%;
+    max-width: 1200px;
+    min-height: 100vh;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 7rem 2rem 2rem;
+    position: relative;
+    z-index: 1;
+}
+
+/* نظام الإحالة الجديد */
+.referral-section {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 24px;
+    padding: 2rem;
+    width: 100%;
+    max-width: 600px;
+    margin-top: 2rem;
+}
+
+.referral-title {
+    background: var(--main-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.referral-box {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.referral-input {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 215, 0, 0.3);
+    border-radius: 12px;
+    padding: 0.8rem 1.2rem;
+    color: white;
+    font-size: 1rem;
+}
+
+.copy-btn {
+    background: var(--main-gradient);
+    border: none;
+    border-radius: 12px;
+    padding: 0 1.5rem;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.copy-btn:hover {
+    transform: scale(1.05);
+}
+
+.referral-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    text-align: center;
+}
+
+.stat-box {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 1.5rem;
+    border-radius: 16px;
+}
+
+.stat-label {
+    color: #FFD700;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+}
+
+.stat-value {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+@media (max-width: 768px) {
+    .content { 
+        padding: 6rem 1rem 1rem; 
+    }
+    .header-logo {
+        width: 60px;
+        height: 60px;
+    }
+    .currency-info {
+        padding: 0.5rem 1rem;
+    }
+    .new-logo {
+        height: 80px;
+        left: 1rem;
+    }
+    .referral-section {
+        padding: 1.5rem;
+    }
+    .referral-title {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .header {
+        padding: 0.8rem 1rem;
+    }
+    .header-logo {
+        width: 50px;
+        height: 50px;
+    }
+    .currency-icon {
+        width: 25px;
+        height: 25px;
+    }
+    .currency-amount {
+        font-size: 1rem;
+        top: 1px;
+    }
+    .new-logo {
+        height: 70px;
+        left: 0.8rem;
+    }
+    .referral-box {
+        flex-direction: column;
+    }
+    .copy-btn {
+        padding: 0.8rem;
+    }
+    .referral-stats {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+</head>
+<body>
+    <div class="background-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+    </div>
+    <div class="stars"></div>
+
+    <header class="header">
+        <img src="https://www2.0zz0.com/2025/02/13/19/971338323.png" alt="شعار جديد" class="new-logo">
+        
+        <div class="header-logo">
+            <img src="https://d.top4top.io/p_3228wytmh3.png" alt="Logo">
+        </div>
+        
+        <div class="currency-info">
+            <div class="currency-wrapper">
+                <img 
+                    src="https://www.raed.net/img?id=1236841" 
+                    alt="Currency" 
+                    class="currency-icon"
+                    loading="eager"
+                    decoding="async"
+                >
+                <span class="currency-amount" id="userBalance">0</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="content">
+        <div class="referral-section">
+            <h2 class="referral-title">نظام الإحالة</h2>
+            
+            <div class="referral-box">
+                <input type="text" class="referral-input" id="referralLink" readonly>
+                <button class="copy-btn" onclick="copyReferralLink()">نسخ الرابط</button>
+            </div>
+            
+            <div class="referral-stats">
+                <div class="stat-box">
+                    <div class="stat-label">عدد الأحالة</div>
+                    <div class="stat-value" id="referralCount">0</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">النقاط المكتسبة</div>
+                    <div class="stat-value" id="referralPoints">0</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script>
+  let allowNavigation = true;
+  let lastScroll = 0;
+  let userId = localStorage.getItem('userId');
+  let referralCount = parseInt(localStorage.getItem('referralCount')) || 0;
+  let referralPoints = parseInt(localStorage.getItem('referralPoints')) || 0;
+
+  // إنشاء ID فريد للمستخدم إذا لم يكن موجود
+  if (!userId) {
+    userId = Date.now().toString(36) + Math.random().toString(36).substr(2, 5);
+    localStorage.setItem('userId', userId);
+  }
+
+  // توليد رابط الإحالة
+  function generateReferralLink() {
+    const baseUrl = window.location.origin;
+    return `${baseUrl}?ref=${userId}`;
+  }
+
+  // نسخ الرابط
+  function copyReferralLink() {
+    const input = document.getElementById('referralLink');
+    input.select();
+    document.execCommand('copy');
+    showNotification('تم نسخ الرابط بنجاح!');
+  }
+
+  // معالجة الإحالة عند دخول المستخدم
+  function handleReferral() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const refId = urlParams.get('ref');
+    
+    if (refId && refId !== userId) {
+      const referrer = localStorage.getItem(refId);
+      
+      if (!referrer) {
+        // منع الاحتيال: كل مستخدم يمكنه الاحالة مرة واحدة فقط
+        localStorage.setItem(refId, 'used');
+        
+        // زيادة نقاط المُحال
+        referralPoints += 100;
+        localStorage.setItem('referralPoints', referralPoints);
+        
+        // زيادة عدد الاحالات للمُحيل
+        const referrerCount = parseInt(localStorage.getItem(`${refId}_count`)) || 0;
+        localStorage.setItem(`${refId}_count`, referrerCount + 1);
+        
+        updateUI();
+      }
+    }
+  }
+
+  // تحديث واجهة المستخدم
+  function updateUI() {
+    document.getElementById('userBalance').textContent = referralPoints;
+    document.getElementById('referralCount').textContent = localStorage.getItem(`${userId}_count`) || 0;
+    document.getElementById('referralPoints').textContent = referralPoints;
+    document.getElementById('referralLink').value = generateReferralLink();
+  }
+
+  // عرض الإشعارات
+  function showNotification(text) {
+    const notification = document.createElement('div');
+    notification.className = 'notification show';
+    notification.innerHTML = `
+      <i class="fas fa-check-circle"></i>
+      <span>${text}</span>
+    `;
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+      notification.remove();
+    }, 3000);
+  }
+
+  // التمرير وإدارة الحالة
+  function handleScroll() {
+    const currentScroll = window.pageYOffset;
+    const header = document.querySelector('.header');
+    const scrollDirection = currentScroll > lastScroll ? 'down' : 'up';
+    lastScroll = currentScroll;
+
+    if (currentScroll > 100) {
+        header.classList.add('scrolled');
+        header.classList.add(scrollDirection === 'down' ? 'scroll-down' : 'scroll-up');
+    } else {
+        header.classList.remove('scrolled', 'scroll-down', 'scroll-up');
+    }
+  }
+
+  // تهيئة الصفحة
+  window.addEventListener('load', () => {
+    window.addEventListener('scroll', handleScroll);
+    handleReferral();
+    updateUI();
+  });
+
+  // إنشاء النجوم
+  const starsContainer = document.querySelector('.stars');
+  for (let i = 0; i < 150; i++) {
+    const star = document.createElement('div');
+    star.className = `star ${['small', 'medium', 'large'][Math.floor(Math.random() * 3)]}`;
+    star.style.left = `${Math.random() * 100}%`;
+    star.style.top = `${Math.random() * 100}%`;
+    star.style.setProperty('--duration', `${2 + Math.random() * 4}s`);
+    star.style.setProperty('--opacity', `${0.5 + Math.random() * 0.5}`);
+    starsContainer.appendChild(star);
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    document.body.style.opacity = '0';
+    requestAnimationFrame(() => {
+      document.body.style.transition = 'opacity 1s ease';
+      document.body.style.opacity = '1';
+    });
+  });
+
+  window.addEventListener('beforeunload', (e) => {
+    if (!allowNavigation) {
+      e.preventDefault();
+      e.returnValue = '';
+    }
+  });
+
+  document.addEventListener('contextmenu', (e) => e.preventDefault());
+</script>
+</body>
+</html>
